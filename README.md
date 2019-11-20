@@ -1,3 +1,8 @@
+---
+has_toc: false
+title : Overview
+---
+
 # Documentation Page for OPC-Proxy
 
-see website [https://opc-proxy.github.io/](opc-proxy.github.io)
+see website [opc-proxy.github.io](https://opc-proxy.github.io/)
