@@ -6,5 +6,5 @@ Visit [https://opc-proxy.github.io/](https://opc-proxy.github.io/)
 
 It is generated using Sphynx, to do so run:
 ```bash
-sphinx-build source/ docs/
+sphinx-build source/ .
 ```
