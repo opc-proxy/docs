@@ -1,3 +1,0 @@
-# Configuration 
-cia ciao
-
