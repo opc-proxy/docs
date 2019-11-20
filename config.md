@@ -1,13 +1,8 @@
 ---
-title: Config
-has_children: true
+title: Configuration
 nav_order: 2
 ---
 
-# Config 
+# Configuration 
 cia ciao
 
-## ciao ciao
-
-bella pe te 
-## ciao ciao ciao 
