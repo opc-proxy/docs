@@ -62,8 +62,3 @@ html_static_path = ['_static']
 
 
 # RTD configs:
-if on_rtd: 
-    html_theme_options = {
-        github_url :'https://github.com/opc-proxy/opc-proxy.github.io/'
-    }
-
