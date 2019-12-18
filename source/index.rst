@@ -8,7 +8,6 @@ Welcome to OPC-Proxy's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
 
 
