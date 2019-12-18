@@ -3,10 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-OPC-Proxy Docs
-=====================================
+:github_url: https://github.com/opc-proxy/opc-proxy-core
+
+Overview
+========
+
+The OPC-Proxy is a set of libraries aimed to facilitate communication
+between the industial autonomation world and **big data** tools.
+
 
 .. toctree::
     :maxdepth: 2
 
-    test
+    intro
+    quickstart
+    configuration
+    connectors
+    write_your_connector
+
+
