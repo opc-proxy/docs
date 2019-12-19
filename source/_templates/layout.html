@@ -1,0 +1,16 @@
+{% extends '!layout.html' %}
+{% block document %}
+{{super()}}
+    <style>
+
+        @media only screen and (max-width: 600px) {
+            #github_ribbon{
+                display: none;
+            }
+        }
+
+    </style>
+    <a id="github_ribbon" href="https://github.com/opc-proxy/opc-proxy-core">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+    </a>
+{% endblock %}
