@@ -71,12 +71,12 @@ pygments_style = 'sphinx'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {
-    'github_user': 'opc-proxy',
-    'github_repo': 'opc-proxy-core',
-    'github_banner': True,
-    'fixed_sidebar': True
- }
+#html_theme_options = {
+#    'github_user': 'opc-proxy',
+#    'github_repo': 'opc-proxy-core',
+#    'github_banner': True,
+#    'fixed_sidebar': True
+# }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
