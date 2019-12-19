@@ -1,7 +1,7 @@
 :github_url: https://github.com/opc-proxy/opc-proxy-core
 
-Overview
-========
+About the OPC-Proxy
+^^^^^^^^^^^^^^^^^^^
 
 The OPC-Proxy is a set of libraries aimed to facilitate communication
 between the industial autonomation world and **big data** tools.
@@ -14,14 +14,9 @@ OPC-server and any of its clients, one of the main features is that it
 support an RPC-style type of communication, so that to allow reads and
 writes to and from an OPC-server.
 
-This tool uses quite a few opensource libraries whitout which it would have
-been impossible to reach this result. We are gratefull to the opc-foundation,
-the lite-DB, the Confluent-platform, for their hard work to make the internet
-a better place.
-
-.. 
-    FIXME add links
-
+This tool uses quite a few opensource libraries, we are gratefull to the `opc-foundation <https://github.com/OPCFoundation/UA-.NETStandard>`_,
+the `lite-DB <https://www.litedb.org/>`_, the `Confluent-platform <https://www.confluent.io/>`_, the `gRPC framework <https://grpc.io/>`_,
+whitout which it would have been impossible to reach this result.
 
 Table of Contents
 =================
