@@ -5,10 +5,9 @@ Introduction
 What is OPC-Proxy?
 ==================
 
-This is a library to build an OPC proxy. It allows to deploy an IoT gateway to connect any OPC server
+The OPC-Proxy allows to build and deploy a customized IoT gateway to connect any OPC server
 with your network of microservices or cloud.
-This library is suitable for monitoring and also controlling devices, while tipically 
-other vendors of IoT gateways only offer monitoring.
+This library is suitable for monitoring and control of devices, while tipically vendors of IoT gateways only offer monitoring.
 We focused on defining a protocol for bidirectional communication exposing the user to
 a simple API, so that one can read, but also write values to the OPC server without knowing details 
 about OPC.
@@ -18,12 +17,14 @@ about OPC.
     - Simple API.
     - Reliable OPC client build with the `OPC-foundation <https://github.com/OPCFoundation/UA-.NETStandard>`_ standard library.
     - Modular design with external connectors that can be added, extended and customized.
-    - Supported connectors: **HTTP, Kafka, InfluxDB**.
+    - Supported connectors: :ref:`HTTP <gRPC>`, :ref:`Kafka`, :ref:`InfluxDB`.
     - Written in C#.
 
 
 Basics of OPC 
 =============
+
+.. _test: 
 
 OPC is an opensource protocol used in industrial autonomation. It allows real time communication
 beween rugged industrial devices. 
@@ -62,15 +63,36 @@ browse each branch of the tree for variable nodes using consequent network calls
 Read, Write and Subscribe
 """"""""""""""""""""""""""
 An OPC client can *read*, *write* and *subscribe* to change of a server variable. 
+Both read and write are single network calls, one can specify to read and write multiple variables at the same time.
+The OPC-proxy only support to read and write *values* on variable nodes, does not support any other attribute.
+Once the OPC-proxy is connected to the server and the session is open, one can monitor a list of variables for their change,
+these are called *monitored items*, the server will push those change when they occur.
+
+Behaviours
+""""""""""""
+:Session: Once the session with the opc-server is established, the OPC-proxy will the care of keeping the connection alive,
+    in case of network interruption the OPC-proxy will keep trying to reconnect at user defined intervals.
+:Node Publishing: once one subscribe for monitor a list of variables, the OPC-server will push their updated values and statuses at intervals
+    to save network requests. The server will aggregate all the change for all the variables within a certain user defined time, 
+    to minimize the network requests it will send all the changes within the interval in a single network call. The OPC-proxy gives the user the
+    possibility to set this time intervall.
+:Node Monitoring: The OPC-proxy will automatically monitor (subscribe to change) all nodes specified in the configuration file.
+:Read and Write: The OPC-proxy will only allow to read and write the nodes specified in the configuration file.  
+:Memory Cache: The OPC-proxy chaches the latest value for each variable in a in-memory database, so it will always return the value from 
+    cache for each read request made by the client and will not hit the OPC-server.
 
 
-Connectors 
-==========
+Connectivity Modules 
+=====================
 
-The API
-========
+The OPC-proxy can connect with only one OPC-server, on the other hand it can put the OPC-server in comunication with a large number of clients,
+each of these clients can use its own favourite protocol. The OPC-proxy has a modular design, to add new capabilities one simply needs to 
+add the corresponding connector. Connectors are modules for the OPC-proxy that implement an endpoint for a communication protocol,
+they can leverage the OPC-proxy core library to interact with the OPC-server. To write your own connector see the :ref:`Extend Connectors` section.
 
-
-
+The currently supported connectors are:
+    - **gRPC:** Implements an RPC type of comunication between a server and a client over HTTP. It uses the gRPC framework, see more details in the :ref:`gRPC` connector section.
+    - **Kafka:** Implements a data stream to a Kafka topic trught the *Kafka producer* library. Implements an RPC type of comunication trough Kafka topics using the JSON-RPC protocol, it accepts write requests. More details in the :ref:`Kafka` connector section.
+    - **InfluxDB:** Submits a stream of metrics to InfulxDB on variables change. More details in the :ref:`InfluxDB` connector section.
 
 

@@ -31,6 +31,7 @@ release = '0.0'
 extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.githubpages',
+    'sphinx.ext.autosectionlabel',
 #    'sphinxjp.themes.basicstrap'
 ]
 

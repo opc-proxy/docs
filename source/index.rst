@@ -1,7 +1,6 @@
-:github_url: https://github.com/opc-proxy/opc-proxy-core
-
+======================
 About the OPC-Proxy
-^^^^^^^^^^^^^^^^^^^
+======================
 
 The OPC-Proxy is a set of libraries aimed to facilitate communication 
 between the industial autonomation world and **big data** tools.
@@ -27,6 +26,6 @@ Table of Contents
     quickstart
     configuration
     connectors
-    write_your_connector
+    extend_connectors
 
 
