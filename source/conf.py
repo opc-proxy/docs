@@ -31,6 +31,7 @@ release = '0.0'
 extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.githubpages',
+#    'sphinxjp.themes.basicstrap'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -67,16 +68,14 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#
+# Alabaster options:
 #html_theme_options = {
 #    'github_user': 'opc-proxy',
 #    'github_repo': 'opc-proxy-core',
 #    'github_banner': True,
 #    'fixed_sidebar': True
 # }
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -92,5 +91,7 @@ html_static_path = ['_static']
 # 'searchbox.html']``.
 #
 # html_sidebars = {}
+
 #---sphinx-themes-----
-html_theme = 'alabaster'
+html_theme = 'press'
+#html_theme = 'basicstrap'

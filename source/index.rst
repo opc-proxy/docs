@@ -3,7 +3,7 @@
 About the OPC-Proxy
 ^^^^^^^^^^^^^^^^^^^
 
-The OPC-Proxy is a set of libraries aimed to facilitate communication
+The OPC-Proxy is a set of libraries aimed to facilitate communication 
 between the industial autonomation world and **big data** tools.
 It is a gateway to put in comunication a network/server that speaks
 the OPC protocol with a network that supports a variety of other protocols.
