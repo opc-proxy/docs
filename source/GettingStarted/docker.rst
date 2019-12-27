@@ -1,34 +1,15 @@
-=================
-Getting Started
-=================
 
-
-Requirements
-============
-This library is written in C#, so you would need to install Microsoft .Net Core framework on your device.
-This is really only needed if you want to write a custom OPC-Proxy, in which case you would need to build the library 
-into an executable, but most of the times the already provided standalone application would do just fine.
-
-.. note::
-    By far the easiest way to get up and running is using our `docker`_ image of the standalone application.
-
-In case you want to build your own custom application you would need the following:
-
-- Install .NET Core >= 2.2  following the description `here <https://dotnet.microsoft.com/download>`_
-- Install Git
-
-
-Getting Started with Docker
-==================================
-.. _docker:
+==============================
+Run With Docker
+==============================
 
 Docker is a way to distribute self-contained applications easily. 
 We provide a Docker image for the Community Edition that you can very easily 
 install and upgrade on your servers. Your machine needs to have the **Docker Engine  Communiti Edition (CE)** installed 
 first. Refer to the docker `installation page <https://docs.docker.com/install/linux/docker-ce/ubuntu/>`_
 
-Download:
-""""""""""
+Download
+==========
 
 .. code-block:: console
 
@@ -37,6 +18,9 @@ Download:
 This will pull an image with the .NET framework dependencies already installed and with a compiled executable.
 The image is built from `this repository <https://github.com/opc-proxy/opcProxy-Standalone>`_, it contains
 a standalone opc-proxy that can provide all supported connectors endpoint, :ref:`Kafka`, :ref:`InfluxDB`, :ref:`gRPC`.
+
+Configure
+===========
 
 Create a configuration file:
 """"""""""""""""""""""""""""""
@@ -111,8 +95,8 @@ This is quite a long command, let's brake it and see what it means:
     Docker containers must have different names, so unless you remove the container (`docker rm`) 
     you must change the name.
 
-Run the Container:
-"""""""""""""""""""
+Run the Container
+==================
 
 First you need to start your OPC test server (see `above <>`_), then you can run the docker container:
 
@@ -145,7 +129,7 @@ This should output something like this::
     2019-12-22 23:37:26.7137|DEBUG|cacheDB|value -> 332.340097954784  type --> System.Double
 
 Usefull Docker Commands
-""""""""""""""""""""""""
+"""""""""""""""""""""""""
 
 .. code-block:: bash
 
@@ -166,7 +150,3 @@ Usefull Docker Commands
 
 
 
-Build the example
-=========================
-
-This section is coming soon...

@@ -32,3 +32,18 @@
     align-items: center;
     justify-content: center;
 }
+
+.sidebar .toctree-l2 a{
+    line-height: 0.9;
+}
+.toctree-l2{
+    line-height: 0.9;
+}
+
+.caption-text{
+    font-size: 1.5rem;
+}
+
+a.current {
+    color:#2c3e50 !important;
+}

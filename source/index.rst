@@ -20,12 +20,22 @@ whitout which it would have been impossible to reach this result.
 Table of Contents
 =================
 .. toctree::
+    :caption: Concepts
     :maxdepth: 2
 
     intro
-    quickstart
-    configuration
     connectors
     extend_connectors
 
+
+.. toctree::
+    :maxdepth: 2
+
+    GettingStarted/index
+
+.. toctree::
+    :caption: Configuration
+    :maxdepth: 2
+
+    configuration
 
