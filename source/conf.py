@@ -97,3 +97,11 @@ html_static_path = ['_static']
 #---sphinx-themes-----
 html_theme = 'press'
 #html_theme = 'basicstrap'
+
+html_theme_options = {
+  "external_links": [
+      ("Github", "https://github.com/opc-proxy"),
+  ]
+}
+
+

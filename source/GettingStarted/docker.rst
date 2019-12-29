@@ -39,7 +39,7 @@ Edit the config:
 
     /* proxy_config.json */
     {
-        "endpointURL":"opc.tcp://localhost:4334/UA/MyLittleServer",
+        "opcServerURL":"opc.tcp://localhost:4334/UA/MyLittleServer",
 
         "loggerConfig" :{
             "loglevel" :"debug"
@@ -54,12 +54,12 @@ Edit the config:
         "kafkaConnector":   false
     }
 
-This will tell the OPC server that:
+This will tell the OPC-Proxy that:
 
 - Needs to connect to an OPC server at the specified URL, which is the default for **nodeOPCUA-simpleServer**, 
   if you are using another test server you need to update that line.
-- In that server it needs to look for a Node with ``BrowseName`` attribute (see :ref:`OPC Data Structure`) 
-  equals to  ``MyVariable1``, which is default for the test server.
+- The nodesLoader here will match against a whitelist all nodes of the server, it will look for a Node with ``BrowseName`` attribute (see :ref:`OPC Data Structure`) 
+  equals to  ``MyVariable1``, which is default for our test server.
 - The log level is set to ``DEBUG``, so that we will see the output of the variable changing.
 - All connectors are set to ``false``, meaning that this proxy will only connect to the opc-server and nothing more.
 
