@@ -99,7 +99,7 @@ This is quite a long command, let's brake it and see what it means:
 Run the Container
 ==================
 
-First you need to start your OPC test server (see `above <>`_), then you can run the docker container:
+First you need to start your OPC test server (see :ref:`OPC Test Server<OPC Test Server>`), then you can run the docker container:
 
 .. code-block:: bash
 

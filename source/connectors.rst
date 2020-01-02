@@ -2,13 +2,15 @@
 Connectors
 ===========
 
+gRPC
+=======
+
+
 Kafka
 =======
 
 InfluxDB
 =========
 
-gRPC
-=======
 
 

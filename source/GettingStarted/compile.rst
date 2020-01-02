@@ -19,8 +19,28 @@ You will need:
 - We suggest to install all three library: **.NET core SDK, .NET core Runtime, ASP .NET core runtime**.
 
 
-Create a project
-===================
+
+Start with a clone Project
+===========================
+
+Probably the easiest is to clone the standalone repository and to take it as starting point. 
+
+.. code-block:: console
+
+    git clone git@github.com:opc-proxy/opcProxy-Standalone.git
+    cd opcProxy-Standalone/
+
+Now build it:
+
+.. code-block:: console
+    
+    dotnet build
+
+Now you can jump to `Add a Configuration file`_ and continue from there.
+
+
+Create a project from scratch
+=============================
 
 Here we describe in steps how to create a .NET project that can be compiled to executable
 and runs a basic opc-proxy. You can get the same result by cloning the standalone repository 
@@ -98,7 +118,7 @@ program will stop otherwise. The default config file name is ``proxy_config.json
 for it in the directory where you run it. You can change the path or the name of the config file via the 
 ``--config path_to_file`` flag at run time.
 
-Create the followin file in the main directory and name it ``proxy_config.json``:
+Create the following file (it is already there in case you are cloning the repo) in the main directory and name it ``proxy_config.json``:
 
 
 .. code-block:: js
@@ -135,9 +155,9 @@ Run The Proxy
 Before actually running the program we need two things:
 
 - An additional config file. Copy `this file <https://github.com/opc-proxy/opcProxy-Standalone/blob/master/Opc.Ua.SampleClient.Config.xml>`_ from the 
-  standalone repository and place it in the main directory. The file name is important, so keep same naming ``Opc.Ua.SampleClient.Config.xml``.
+  standalone repository and place it in the main directory (not needed if you cloned it). The file name is important, so keep same naming ``Opc.Ua.SampleClient.Config.xml``.
   Soon this will not be needed anymore, refer to `issue #17 <https://github.com/opc-proxy/opc-proxy-core/issues/17>`_.
-- Run your favourite test opc-server. Remember the configuration we used will only work for the test server described in the :ref:`Requirements` section.
+- Run your favourite test opc-server. Remember the configuration we used will only work for the :ref:`Python test server<Setup an OPC-Server with Python>`.
 
 Now you can simply do:
 
@@ -155,8 +175,28 @@ Adding Connectors
 
 Up to now the OPC-Proxy would only connect to the opc-server, browse its variable tree and subscribe
 to change of the variables that match the ``nodeLoader`` criteria. Now we will add **connectors** that 
-will allow Read, Write, Subscribe acess to the external world. Any connector must implement the *OPC-Proxy interface*
-so independently of its implementation you can add any connector as follows:
+will allow Read, Write, Subscribe acess to the external world. 
+
+If you followed the `Start with a clone Project`_ section you can add connectors via config file, by adding the following 
+options:
+
+.. code-block:: js
+
+    {
+        /* some config.... */
+
+
+        "httpConnector" :   false,
+       "influxConnector" : false,
+       "kafkaConnector":   false
+    }
+
+Turnig ``true``/``false`` those switches you can enable/disable the corresponding connector.
+You can find more details on each of these connectors and their configurations in the :ref:`Connectors` section.
+
+
+If you followed `Create a project from scratch`_ instead, then to add connectors you need to modify the ``Program.cs``. 
+Any connector must implement the *OPC-Proxy interface* so independently of its implementation you can add any connector as follows:
 
 .. code-block:: c#
 
@@ -180,30 +220,12 @@ so independently of its implementation you can add any connector as follows:
     KafkaConnect kafka = new KafkaConnect();
     manager.addConnector(kafka);
 
-You can find more details on each of these connectors and their configurations in the :ref:`Configuration` section.
+You can find more details on each of these connectors and their configurations in the :ref:`Connectors` section.
 
 .. note::
     The ``InfluxDB`` and ``Kafka`` connectors will not work if the respective servers are not running.
 
 
-Start with a clone Project
-===========================
-
-.. warning::
-    This currently does not work, because of local references. Will update asap. See `issue #1 <https://github.com/opc-proxy/opcProxy-Standalone/issues/1>`_.
-
-Probably the easiest is to clone the standalone repository and to take as starting point. 
-
-.. code-block:: console
-
-    git clone git@github.com:opc-proxy/opcProxy-Standalone.git
-    cd opcProxy-Standalone/
-
-Now build it:
-
-.. code-block:: console
-    
-    dotnet build
 
 
 

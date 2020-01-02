@@ -33,7 +33,7 @@
     justify-content: center;
 }
 
-.sidebar .toctree-l2 a{
+.sidebar .toctree-l1.current .toctree-l2 a{
     line-height: 0.9;
 }
 .toctree-l2{

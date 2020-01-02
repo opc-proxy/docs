@@ -1,10 +1,9 @@
 Getting Started
 ================
 
-Table of Content
-================
 
 .. toctree::
+    :hidden:
     :caption: Getting Started
     :maxdepth: 1
 

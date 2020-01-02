@@ -19,7 +19,7 @@ In case you want to build your own custom application you would need the followi
 - Git
 
 OPC Test Server
-================
+===============
 
 This library is an OPC-client which is quite useless without an OPC-server to connect to.
 It is very usefull to have a test OPC-server that you can configure and run to quicly check 
@@ -32,7 +32,8 @@ we reccomend two, that are decently complete and easy to use:
 - The NodeJS library
 
 Setup an OPC-Server with Python
-""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
+
 
 The Python based OPCUA library is maybe not the most complete but certainly one of the 
 simplest to get up and running. Install the module:
