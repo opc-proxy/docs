@@ -105,7 +105,7 @@ Create the followin file in the main directory and name it ``proxy_config.json``
 
     /* proxy_config.json */
     {
-        "opcServerURL":"opc.tcp://localhost:4334/UA/MyLittleServer",
+        "opcServerURL":"opc.tcp://localhost:4840/freeopcua/server/",
 
         "loggerConfig" :{
             "loglevel" :"debug"
@@ -113,16 +113,17 @@ Create the followin file in the main directory and name it ``proxy_config.json``
         
         "nodesLoader" : {
             "targetIdentifier" : "browseName", 
-            "whiteList":["MyVariable1"]
+            "whiteList":["MyVariable"]
+
         }
     }
 
 This will tell the OPC-Proxy that:
 
-- Needs to connect to an OPC server at the specified URL, which is the default for **nodeOPCUA-simpleServer**, 
+- Needs to connect to an OPC server at the specified URL, we use a python test server as described in :ref:`Setup an OPC-Server with Python`, 
   if you are using another test server you need to update that line.
 - The nodesLoader here will match against a whitelist all nodes of the server, it will look for a Node with ``BrowseName`` attribute (see :ref:`OPC Data Structure`) 
-  equals to  ``MyVariable1``, which is default for our test server.
+  equals to  ``MyVariable``, which is default for our test server.
 - The log level is set to ``DEBUG``, so that we will see the output of the variable changing.
 
 There are many configuration options and possibilities for loading nodes, they are described in detail in the :ref:`Configuration` section.
