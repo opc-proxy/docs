@@ -15,7 +15,7 @@ If you havn't done it yet, and especially if you are using a Linux machine.
 You can find instruction on how to do it on the `Microsoft Website <https://dotnet.microsoft.com/download>`_.
 You will need:
 
-- .NET Core >= 2.2
+- .NET Core >= 3.1
 - We suggest to install all three library: **.NET core SDK, .NET core Runtime, ASP .NET core runtime**.
 
 

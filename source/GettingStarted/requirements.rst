@@ -14,7 +14,7 @@ into an executable.
 
 In case you want to build your own custom application you would need the following:
 
-- .NET Core >= 2.2  following the description `here <https://dotnet.microsoft.com/download>`_
+- .NET Core >= 3.1  following the description `here <https://dotnet.microsoft.com/download>`_
 - Your favourite OPC test server
 - Git
 
