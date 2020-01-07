@@ -3,11 +3,7 @@
 Extend Connectors
 ==================
 
-ciao
-======
-
-Bla Bla
-========
-
+.. warning::
+    This section is under construction.
 
 

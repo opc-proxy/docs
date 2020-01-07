@@ -26,8 +26,10 @@ As a comunication layer gRPC uses HTTP2, while it uses
 `protocol buffers <https://developers.google.com/protocol-buffers/>`_
 as serialization/deserialization and Interface Definition Language.
 
-API
-"""
+You find the configuration option for this connector package in the :ref:`Configuration` section.
+
+HTTP Connector API
+""""""""""""""""""
 
 A client can initiate ``Read`` request and a ``Write`` request. 
 In future also a subscritpion to server push on variable change will be available.
@@ -80,13 +82,14 @@ The data exchanged in a write request is:
 
 The value of the write request need to be serialized always to a ``string``, the OPC-Proxy knows what is 
 the right type and will take care of the conversion. In case of conversion error or OPC-server error it will 
-return an error message in the response.
+return an error message (error message still in preparation see `issue #1 <https://github.com/opc-proxy/GrpcConnector/issues/1>`_)in the response and the ``isError`` boolean will be true. A successful write request
+will have a ``isError = false``.
 
 
 
-Example of usage repository
-""""""""""""""""""""""""""""
-An example client with NodeJs is provided in this `repository <https://github.com/opc-proxy/OPC-Node-Client-Examples/tree/master/Examples/gRPC>`_
+HTTP Client Example
+"""""""""""""""""""
+An example client based on NodeJs is provided in this `repository <https://github.com/opc-proxy/OPC-Node-Client-Examples/tree/master/Examples/gRPC>`_
 Follow the instruction reported there.
 
 First run the OPC-Proxy configured with a gRPC endpont, this example assumes an OPC-Proxy running on ``port:5051``, 

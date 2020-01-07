@@ -17,6 +17,8 @@ about OPC.
     - Suitable for **monitoring** and **controlling** devices.
     - Simple API.
     - Reliable OPC client build with the `OPC-foundation <https://github.com/OPCFoundation/UA-.NETStandard>`_ standard library.
+    - Load nodes from an XML file (nodes2set) or simply browsing the server
+    - Powerful Nodes loading selection options
     - Modular design with external connectors that can be added, extended and customized.
     - Supported connectors: :ref:`HTTP <gRPC>`, :ref:`Kafka`, :ref:`InfluxDB`.
     - Written in C#.
@@ -24,8 +26,6 @@ about OPC.
 
 Basics of OPC 
 =============
-
-.. _test: 
 
 OPC is an opensource protocol used in industrial autonomation. It allows real time communication
 beween rugged industrial devices. 
