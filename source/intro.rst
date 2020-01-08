@@ -17,7 +17,7 @@ about OPC.
     - Suitable for **monitoring** and **controlling** devices.
     - Simple API.
     - Reliable OPC client build with the `OPC-foundation <https://github.com/OPCFoundation/UA-.NETStandard>`_ standard library.
-    - Load nodes from an XML file (nodes2set) or simply browsing the server
+    - Load nodes from an XML file (Nodeset XML spec) or simply browsing the server
     - Powerful Nodes loading selection options
     - Modular design with external connectors that can be added, extended and customized.
     - Supported connectors: :ref:`HTTP <gRPC>`, :ref:`Kafka`, :ref:`InfluxDB`.
@@ -54,7 +54,7 @@ Loading Nodes
 """""""""""""""
 A client does not in general know the node ids of the variables on which wants to operate on, usually they are strings related to the variable name,
 but in general these can be random integers, depending on the implementation of the server. There are two ways to make an opc-proxy aware of the node ids for
-the relevant variables, one can feed an XML file produced from the server with all nodes using the *node2set* OPC specification. Or one can simply 
+the relevant variables, one can feed an XML file produced from the server with all nodes using the ``OPC UA Nodeset XML schema``. Or one can simply 
 browse each branch of the tree for variable nodes using consequent network calls, this last option is referred to as *browsing*. 
 
 .. WARNING:: **Browsing feature:**

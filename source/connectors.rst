@@ -52,16 +52,16 @@ A node is represented as:
 The value of the nodes is always serialized to ``string``, is you responsability to deserialize it
 to the ``type`` specified.
 
-A read request an its response is defined as:
+A read request and its response is defined as:
 
 .. code-block:: typescript
 
     ReadOpcNodes( ReadRequest ) returns ( ReadResponse )
     // where:
-    ReadRequest : string[];  // list of strings
+    ReadRequest : string[];  // list of node names to be read
 
     ReadResponse : {
-        nodes : NodeValue[], // list of nodes
+        nodes : NodeValue[], // list of read nodes
         isError : bool,
         errorMessage : string
     }
@@ -109,11 +109,36 @@ Kafka
 `Apache Kafka <https://kafka.apache.org/>`_ is an open-source stream-processing platform,
 it is the de facto standard for high-throughput, low-latency handling of real-time data feeds.
 
+The Kafka-Connector add the ability to the opc-proxy to stream data to a kafka server. It supports:
+
+- Sending a message on a topic when a node value changes (notification form opc-server)
+- Bidirectional comunication, ``read/write`` and possibly more, with the PLC using an RPC protocol. The protocol supported is `JSON-RPC-2.0 <https://www.jsonrpc.org/specification>`_.
+
+This library uses the `Avro <https://avro.apache.org/>`_ serialization library, which allows great flexibility in defining the structure of the data 
+exchanged. As storage engine for data schemas we are using the `Confluent SchemaRegistry <https://www.confluent.io/confluent-schema-registry/>`_, which is necessary for this library.
+In the future a ``JSON`` based serialization option will be available and so the additional complexity of a schema registry will not be 
+required anymore (see `issue #4 <https://github.com/opc-proxy/KafkaConnectorLib/issues/4>`_).
+
 Data Streams
 """"""""""""
+The Kafka-Connector will by default define three **topics** the name of which depends on the configuration variable ``opcSystemName``: 
+
+- The data stream of nodes value change will be directed on topic named as the ``opcSystemName``.
+- All the RPC-style requests need to be send to topic name ``opcSystemName``-request.
+- All the RPC-style responses will be served in a topic named ``opcSystemName``-response.
+
+For the RPC-style comunication we are using Kafka as a simple message broker, the default configuration of the producer and consumer 
+of the RPC-topics are such that the comunication between the OPC-server and your client is preformed with latency of the order of ``10 ms``.
 
 Serialization deserialization
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""
+
+Kafka-RPC
+"""""""""
+
+The protocol used used for this comunication is defined in the `JSON-RPC spec <https://www.jsonrpc.org/specification>`_, 
+here we go quicly trough it by examples.
+
 
 Example repository
 """"""""""""""""""

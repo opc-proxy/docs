@@ -68,15 +68,19 @@ Setup a docker container:
 """""""""""""""""""""""""
 
 .. code-block:: bash
+    
+    cd opcProxyConfigs
+    # Env variable to make easier the next command
+    OPC_LOCAL_CONF=$(pwd)
 
     docker create       \   # (1)
     --name proxy_test   \   # (2)
     --network="host"    \   # (3)
-    -v absolute_path_to_config_dir:/app/configs  \  # (4)
+    -v ${OPC_LOCAL_CONF}:/app/configs  \  # (4)
     openscada/opc-proxy     # (5)
 
     # below the same command as above but in one line (copy-paste friendly)
-    docker create --name proxy_test --network="host" -v absolute_path_to_config_dir:/app/configs openscada/opc-proxy
+    docker create --name proxy_test --network="host" -v ${OPC_LOCAL_CONF}:/app/configs openscada/opc-proxy
 
 This is quite a long command, let's brake it and see what it means:
 
@@ -86,7 +90,7 @@ This is quite a long command, let's brake it and see what it means:
   If you would like to use the default docker networking option then you would need to find the IP of the docker ``network bridge``,
   more details in the Docker guide `Configure Networking <https://docs.docker.com/network/>`_.
 - Line ``(4)`` is the most important, here we are mounting an external volume to the docker container, the syntax is simple: 
-  ``absolute_path_to_host_dir``:``mirror_dir_in_container``, now all the content of the ``host_dir`` will be available to the docker 
+  ``-v absolute_path_to_host_dir : mirror_dir_in_container``, now all the content of the ``host_dir`` will be available to the docker 
   container dynamically. Here we want to pass the directory we just created that contains the configuration file. 
 
 .. warning::
@@ -107,27 +111,15 @@ First you need to start your OPC test server (see :ref:`OPC Test Server<OPC Test
     docker start -i proxy_test
 
 This should output something like this::
-
-    2019-12-22 23:37:23.6756|INFO|cacheDB|Creating Application Configuration.
-    2019-12-22 23:37:24.0252|WARN|cacheDB|Automatically accepting untrusted certificates. Do not use in production. Change in 'OPC.Ua.SampleClient.Config.xml'.
-    2019-12-22 23:37:24.0263|INFO|cacheDB|Discover endpoints of opc.tcp://localhost:4334/UA/MyLittleServer.
-    2019-12-22 23:37:24.3415|INFO|cacheDB|    Selected endpoint uses: Basic128Rsa15
-    2019-12-22 23:37:24.3415|INFO|cacheDB|Creating a session with OPC UA server.
-    Accepted Certificate: CN=NodeOPCUA-TEST, O=NodeOPCUA, L=Paris, S=IDF, C=FR
-    2019-12-22 23:37:24.4921|INFO|serviceManager|Loading nodes via browsing the OPC server...
-    2019-12-22 23:37:24.5379|INFO|cacheDB|Surfing recursively trough server tree....
-    2019-12-22 23:37:24.5379|DEBUG|cacheDB| DisplayName, BrowseName, NodeClass
-    2019-12-22 23:37:24.6746|DEBUG|cacheDB|Retriving data types of the selected nodes...
-    2019-12-22 23:37:24.6746|DEBUG|cacheDB|Adding Node MyVariable1  of type System.Double
-    2019-12-22 23:37:24.6916|WARN|cacheDB|number of nodes : 1
-    2019-12-22 23:37:24.6938|INFO|cacheDB|Creating a subscription with publishing interval of 1 second.
-    2019-12-22 23:37:24.6938|INFO|cacheDB|Adding a list of monitored nodes to the subscription.
-    2019-12-22 23:37:24.6938|INFO|cacheDB|Number of nodes to be monitored: 1
-    2019-12-22 23:37:24.7040|INFO|cacheDB|Adding the subscription to the session.
-    2019-12-22 23:37:24.7642|INFO|serviceManager|Running...Press Ctrl-C to exit...
-    2019-12-22 23:37:25.7711|DEBUG|cacheDB|value -> 300.0463184435  type --> System.Double
-    2019-12-22 23:37:25.7799|DEBUG|cacheDB|Updating value for MyVariable1 to 300.0463184435 at 12/22/2019 22:04:01
-    2019-12-22 23:37:26.7137|DEBUG|cacheDB|value -> 332.340097954784  type --> System.Double
+    
+    2020-01-08 17:05:53.5762|INFO|OPCclient|Creating Application Configuration.
+    2020-01-08 17:05:54.1004|WARN|OPCclient|Automatically accepting untrusted certificates. Do not use in production. Change in 'OPC.Ua.SampleClient.Config.xml'.
+    2020-01-08 17:05:54.1004|INFO|OPCclient|Trying to connect to server endpoint:  opc.tcp://localhost:4840/freeopcua/server/
+    2020-01-08 17:05:54.3017|INFO|OPCclient|Selected endpoint uses the following security policy: None
+    2020-01-08 17:05:54.3017|INFO|OPCclient|Creating a session with OPC UA server.
+    2020-01-08 17:05:54.3495|INFO|serviceManager|Loading nodes via browsing the OPC server...
+    2020-01-08 17:05:54.3765|INFO|OPCclient|Surfing recursively trough server tree....
+    2020-01-08 17:05:54.5011|INFO|cacheDB|Number of selected nodes: 1
 
 Usefull Docker Commands
 """""""""""""""""""""""""
@@ -148,6 +140,12 @@ Usefull Docker Commands
 
     # list all containers
     docker ps -a 
+
+    # Remove container
+    docker rm __container_name__
+
+    # remove image
+    docker rmi  __image_name__
 
 
 
