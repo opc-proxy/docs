@@ -24,6 +24,8 @@ about OPC.
     - Written in C#.
 
 
+Here we describe the features of the `OPC-Proxy core <https://github.com/opc-proxy/opc-proxy-core>`_ library.
+
 Basics of OPC 
 =============
 

@@ -15,7 +15,7 @@ An OPC-Proxy **can run multiple connectors**, so for example one can push metric
 serving a gRPC or Kafka (or both) endpoint.
 
 gRPC
-=======
+====
 
 gRPC is a modern open source high performance RPC framework, initially 
 developed at Google. It is very flexible and userfriendly, it can easily 
@@ -26,7 +26,9 @@ As a comunication layer gRPC uses HTTP2, while it uses
 `protocol buffers <https://developers.google.com/protocol-buffers/>`_
 as serialization/deserialization and Interface Definition Language.
 
-You find the configuration option for this connector package in the :ref:`Configuration` section.
+The OPC-Proxy gRPC-Connector repository can be found at `gitHub-GrpcConnector <https://github.com/opc-proxy/GrpcConnector>`_.
+You find all its configuration options in the :ref:`Configuration` section.
+
 
 HTTP Connector API
 """"""""""""""""""
@@ -34,7 +36,7 @@ HTTP Connector API
 A client can initiate ``Read`` request and a ``Write`` request. 
 In future also a subscritpion to server push on variable change will be available.
 The read/write request and response are defined in the proto-config-file that you can download 
-from the `repository <https://github.com/opc-proxy/GrpcConnector/blob/master/opcGrpcConnect/opc.grpc.connect.proto>`_,
+from this `gitHub-repo <https://github.com/opc-proxy/GrpcConnector/blob/master/opcGrpcConnect/opc.grpc.connect.proto>`_,
 you can use the proto-config to generate automatically the code needed for the comunication in almost
 any language. 
 
@@ -89,7 +91,7 @@ will have a ``isError = false``.
 
 HTTP Client Example
 """""""""""""""""""
-An example client based on NodeJs is provided in this `repository <https://github.com/opc-proxy/OPC-Node-Client-Examples/tree/master/Examples/gRPC>`_
+An example client based on NodeJs is provided in the `gitHub-OPC-Node-Client-Example <https://github.com/opc-proxy/OPC-Node-Client-Examples/tree/master/Examples/gRPC>`_
 Follow the instruction reported there.
 
 First run the OPC-Proxy configured with a gRPC endpont, this example assumes an OPC-Proxy running on ``port:5051``, 
@@ -118,6 +120,9 @@ This library uses the `Avro <https://avro.apache.org/>`_ serialization library, 
 exchanged. As storage engine for data schemas we are using the `Confluent SchemaRegistry <https://www.confluent.io/confluent-schema-registry/>`_, which is necessary for this library.
 In the future a ``JSON`` based serialization option will be available and so the additional complexity of a schema registry will not be 
 required anymore (see `issue #4 <https://github.com/opc-proxy/KafkaConnectorLib/issues/4>`_).
+
+The OPC-Proxy Kafka-connector repository can be found at `gitHub-KafkaConnectorLib <https://github.com/opc-proxy/KafkaConnectorLib>`_.
+You find all its configuration options in the :ref:`Configuration` section.
 
 Data Streams
 """"""""""""
