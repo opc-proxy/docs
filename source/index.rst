@@ -17,6 +17,13 @@ This tool uses quite a few opensource libraries, we are gratefull to the `opc-fo
 the `lite-DB <https://www.litedb.org/>`_, the `Confluent-platform <https://www.confluent.io/>`_, the `gRPC framework <https://grpc.io/>`_,
 whitout which it would have been impossible to reach this result.
 
+Jump to Concept
+""""""""""""""""
+
+- The OPC-Proxy core functionality :ref:`Introduction`
+- Description of supported :ref:`Connectors`
+- How to :ref:`Write Your Own Connector<Extend Connectors>`
+
 .. toctree::
     :hidden:
     :caption: Concepts
