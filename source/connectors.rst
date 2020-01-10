@@ -128,25 +128,104 @@ Data Streams
 """"""""""""
 The Kafka-Connector will by default define three **topics** the name of which depends on the configuration variable ``opcSystemName``: 
 
-- The data stream of nodes value change will be directed on topic named as the ``opcSystemName``.
-- All the RPC-style requests need to be send to topic name ``opcSystemName``-request.
-- All the RPC-style responses will be served in a topic named ``opcSystemName``-response.
+- The **Metrics-topic**, the one containing a stream of nodes value on change, is named as the ``opcSystemName`` configuration variable.
+- The **RPC-request** topic, the one where all the (write) request are send, is named ``opcSystemName`` with appended suffix ``-request``.
+- The **RPC-response** topic, the one where all the RPC-style responses are served, is named ``opcSystemName`` with appended suffix ``-response``.
 
-For the RPC-style comunication we are using Kafka as a simple message broker, the default configuration of the producer and consumer 
-of the RPC-topics are such that the comunication between the OPC-server and your client is preformed with latency of the order of ``10 ms``.
 
-Serialization deserialization
+Serialization Deserialization
 """""""""""""""""""""""""""""
+In Kafka messages are organized as a key:value pair. ``Key`` and ``Value`` can be serialized/deserialized with independent 
+serializers, we choose to serialize ``Keys`` using the standard string-serializer, so the message key will always be a strings, while the values are serialized using 
+the `Avro <https://avro.apache.org/>`_ framework. 
+
+In Avro one describes the data structure in a JSON-schema, the schema is stored in a schema-registry server, each message has an ID that refer to 
+that schema, so each client can deserialize the messages dinamically. One can add a data type or modify an existing schema and the client will 
+be able to properly deserialize the data without the need of additional code. So changing data structure (if backwords compatible) will not break
+clients. It also give flexibility, one can configure it to send messages with different data content on the same topic and the 
+consumer will always be able to deserialize it correctly. Here we use this last property, independently on the Node value type, 
+the consumer will always get the value properly deserialized (and already with the right type) depending  on which language you are using.
+
+For the **Metrics-topic**, the one where are streamed the nodes values on change, we use as Kafka **message Key** the node variable name, 
+while as Kafka **message Value** we use the following Avro schema:
+
+.. code-block:: typescript
+    
+    {
+        type: 'record',
+        name: datatype + 'Type',
+        fields:[
+            {
+                name:'value', 
+                type: datatype
+            }
+        ]
+    }
+
+Where ``datatype`` can be: ``string``, ``double``, ``float``, ``boolean``, ``int``, ``long``.
+
 
 Kafka-RPC
 """""""""
+For the RPC-style comunication we are using Kafka as a simple message broker, the default configuration of the producer and consumer 
+of the RPC-topics are such that the comunication between the OPC-server and your client is preformed with latency of the order of ``10 ms``.
+The protocol used used for this comunication is defined in the `JSON-RPC spec <https://www.jsonrpc.org/specification>`_.
+Even tough Kafka might seems inadequate for an RPC-style comunication, we find that it makes communication in a system 
+(with many microservices) simpler and more flexible, it is a way to standardize comms, allowing for example a ``kafka-stream`` or a 
+Storm-bolt to write easily to an OPC-server.
 
-The protocol used used for this comunication is defined in the `JSON-RPC spec <https://www.jsonrpc.org/specification>`_, 
-here we go quicly trough it by examples.
+You can find the Avro schema used for the **RPC-request**  and **RPC-response** topics 
+at `gitHub-RPC-Schemas <https://github.com/opc-proxy/OPC-Node-Client-Examples/tree/master/Examples/Kafka/AvroSchemas>`_.
+We tried to make it as close as possible to the original spec, but there are a few differences. 
+The **RPC-request** kafka **message-key** is a string and is controlled by the client, the Kafka-Connector does nothing
+with it except making sure that the corresponding **RPC-response** will have the same message-key.
+A  request message will look like:
+
+.. code-block:: typescript
+
+    // Request
+    {
+        method : string,
+        params : string[]  // list of strings
+        id: long or null
+    }
+
+Where the only ``method`` supported by now is ``write`` (but in the future might be more) and ``params`` is expected to contain 
+a list with two strings, the first one representing the name of the node, the second one its value. The Kafka-Connector will take care
+of serializing the value from string to the correct data type expected by the OPC-server. The ``id`` if provided will be forwarded to 
+the response, in case of ``null`` then the Kafka-Connector will return the Kafka offset as ``id`` in the response, in this way you can let 
+Kafka worry to generate system-wide unique ids for you (well, in this case topic-wide unique ids), you can collect the offset at 
+request time, tide it to the topic and store it memory, then wait for the corresponding response.
+
+A response message value in the  **RPC-response** topics, would look like:
+
+.. code-block:: typescript
+
+    // Response
+    {
+        result : string or null,
+
+        error : {  // != null only if an error exist
+            code : integer,
+            message : string, 
+        } 
+
+        id: long 
+    }
+
+Given that the only supported method is "write", the ``result`` will be a string representing the written node value to 
+the OPC-server, and will differ from ``null`` only in case of successful write operation.
+The ``error`` object will only be present in case of an error (when "result" is null).
+The ``id`` is either forwarded from the request or the Kafka-Offset of the related request-message in the RPC-request topic.
+
+.. note::
+    If the RPC-request topic has more than one partition and the ``id`` is set to ``null`` in a request, the response ``id`` will be ambiguous.
+    Please inform us if you have such a use case.
 
 
-Example repository
-""""""""""""""""""
+Kafka-Connector Client Example
+""""""""""""""""""""""""""""""
+
 
 
 InfluxDB
