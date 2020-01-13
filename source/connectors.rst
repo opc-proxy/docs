@@ -17,6 +17,7 @@ serving a gRPC or Kafka (or both) endpoint.
 gRPC Connector
 ==============
 
+
 gRPC is a modern open source high performance RPC framework, initially 
 developed at Google. It is very flexible and userfriendly, it can easily 
 put in communication different services independently on the programming 

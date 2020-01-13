@@ -37,6 +37,28 @@ These configs are related to core features and define how the opc client must be
     "**publishingInterval**", "int", "1000 [ms]", "This is a subscription parameter, time intervall [millisecond] at which the OPC server will send node values updates."
     "**opcSystemName**", "string","OPC", "Name of the OPC system that will be used for identification "
 
+Nodes Loader 
+^^^^^^^^^^^^^
+These are config related to nodes loading methods and selection rules.
+
+.. note::
+    If no selection rules are defined then **ALL** nodes of type **Variable** are loaded automatically.
+    If more selection rules are defined they Add/Excludes nodes (of type Variable) based on the following priority order: ``whiteList``,
+    ``blackList``, ``contains``, ``notContain``, ``matchRegEx``
+
+.. csv-table::
+    :header: "Config Key","type","Default","Notes"
+    :widths: 20, 10, 10, 40
+
+    "**browseNodes**", "bool", "true", "If ``true`` load nodes via recursively drilling trough the server tree, it may use many network requests. If false will load nodes from an xml file, according to the Nodeset2 OPC specification."
+    "**targetIdentifier**", "string", "DisplayName", "Node attribute that undergoes selection rules, it can be: ``displayname``,``browsename``,``nodeid``. In case of ``nodeid`` is necessary to specify also the prefix like ``i=123`` or ``s=VarName``. It is case insensitive."
+    "**filename**", "string", "nodeset.xml", "Path to the xml file where the nodes are defined. Necessary if ``browseNodes = false``."
+    "**whiteList**", "string[ ]", "empty", "Accept all nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list. "
+    "**blackList**", "string[ ]", "empty", "Exclude nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list."
+    "**contains**", "string[ ]", "empty", "Accept nodes with  ``targetIdentifier`` **containing** one of the string in the list."
+    "**notContain**",  "string[ ]", "empty", "Excludes nodes with  ``targetIdentifier`` **containing** one of the string in the list."
+    "**matchRegEx**",  "string[ ]", "empty", "Accept nodes with  ``targetIdentifier`` **matching** one of the regular expression string in the list."
+
 
 gRPC-Connector Configs
 """"""""""""""""""""""
@@ -102,14 +124,14 @@ kafkaProducer:
     :widths: 20, 10, 10, 40
 
     "**BootstrapServers**", "string", "localhost:9092", "Comma separated list of Kafka brokers endpoints. If not set, this will be set to the value of **KafkaServers**."
-    "**BatchNumMessages**", "int", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
-    "**LingerMs**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
-    "**QueueBufferingMaxKbytes**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
-    "**QueueBufferingMaxMessages**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
-    "**MessageTimeoutMs**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
-    "**EnableIdempotence**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
-    "**RetryBackoffMs**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
-    "**MessageSendMaxRetries**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**BatchNumMessages**", "int", "10000", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**LingerMs**", "int", "100 [ms]", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**QueueBufferingMaxKbytes**", "int", "1048576 [Kbytes]", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**QueueBufferingMaxMessages**", "int", "100000", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**MessageTimeoutMs**", "int", "300000", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**EnableIdempotence**", "bool", "false", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**RetryBackoffMs**", "int", "100 [ms]", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**MessageSendMaxRetries**", "int", "2", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
 
 kafkaRPC:
 ^^^^^^^^^^^^^^^^^

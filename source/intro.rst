@@ -20,7 +20,7 @@ about OPC.
     - Load nodes from an XML file (Nodeset XML spec) or simply browsing the server
     - Powerful Nodes loading selection options
     - Modular design with external connectors that can be added, extended and customized.
-    - Supported connectors: :ref:`HTTP <gRPC>`, :ref:`Kafka<Kafka-Connector>`, :ref:`InfluxDB`.
+    - Supported connectors: :ref:`gRPC <gRPC Connector>`, :ref:`Kafka<Kafka-Connector>`, :ref:`InfluxDB`.
     - Written in C#.
 
 
@@ -58,6 +58,7 @@ A client does not in general know the node ids of the variables on which wants t
 but in general these can be random integers, depending on the implementation of the server. There are two ways to make an opc-proxy aware of the node ids for
 the relevant variables, one can feed an XML file produced from the server with all nodes using the ``OPC UA Nodeset XML schema``. Or one can simply 
 browse each branch of the tree for variable nodes using consequent network calls, this last option is referred to as *browsing*. 
+See configuration of the :ref:`Nodes Loader` for more info on the nodes selection criteria.
 
 .. WARNING:: **Browsing feature:**
     The use of browsing feature for a server that contains many variables may lead to a large amout of network requests and 
@@ -93,8 +94,9 @@ each of these clients can use its own favourite protocol. The OPC-proxy has a mo
 add the corresponding connector. Connectors are modules for the OPC-proxy that implement an endpoint for a communication protocol,
 they can leverage the OPC-proxy core library to interact with the OPC-server. To write your own connector see the :ref:`Extend Connectors` section.
 
+
 The currently supported connectors are:
-    - **gRPC:** Implements an RPC type of comunication between a server and a client over HTTP. It uses the gRPC framework, see more details in the :ref:`gRPC<gRPC Connector>` connector section.
+    - **gRPC:** Implements an RPC type of comunication between a server and a client over HTTP. It uses the gRPC framework, see more details in the :ref:`gRPC Connector` section.
     - **Kafka:** Implements a data stream to a Kafka topic trught the *Kafka producer* library. Implements an RPC type of comunication trough Kafka topics using the JSON-RPC protocol, 
       it accepts write requests. More details in the :ref:`Kafka<Kafka-Connector>` connector section.
     - **InfluxDB:** Submits a stream of metrics to InfulxDB on variables change. More details in the :ref:`InfluxDB` connector section.
