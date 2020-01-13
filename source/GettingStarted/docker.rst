@@ -17,7 +17,7 @@ Download
 
 This will pull an image with the .NET framework dependencies already installed and with a compiled executable.
 The image is built from `this repository <https://github.com/opc-proxy/opcProxy-Standalone>`_, it contains
-a standalone opc-proxy that can provide all supported connectors endpoint, :ref:`Kafka`, :ref:`InfluxDB`, :ref:`gRPC`.
+a standalone opc-proxy that can provide all supported connectors endpoint, :ref:`Kafka<Kafka-Connector>`, :ref:`InfluxDB`, :ref:`gRPC`.
 
 Configure
 ===========
@@ -50,7 +50,7 @@ Edit the config:
             "whiteList":["MyVariable"]
 
         },
-        "httpConnector" :   false,
+        "grpcConnector" :   false,
         "influxConnector" : false,
         "kafkaConnector":   false
     }

@@ -186,9 +186,9 @@ options:
         /* some config.... */
 
 
-        "httpConnector" :   false,
-       "influxConnector" : false,
-       "kafkaConnector":   false
+        "grpcConnector" :   false,
+        "influxConnector" : false,
+        "kafkaConnector":   false
     }
 
 Turnig ``true``/``false`` those switches you can enable/disable the corresponding connector.

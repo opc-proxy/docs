@@ -20,7 +20,7 @@ about OPC.
     - Load nodes from an XML file (Nodeset XML spec) or simply browsing the server
     - Powerful Nodes loading selection options
     - Modular design with external connectors that can be added, extended and customized.
-    - Supported connectors: :ref:`HTTP <gRPC>`, :ref:`Kafka`, :ref:`InfluxDB`.
+    - Supported connectors: :ref:`HTTP <gRPC>`, :ref:`Kafka<Kafka-Connector>`, :ref:`InfluxDB`.
     - Written in C#.
 
 
@@ -95,7 +95,7 @@ they can leverage the OPC-proxy core library to interact with the OPC-server. To
 
 The currently supported connectors are:
     - **gRPC:** Implements an RPC type of comunication between a server and a client over HTTP. It uses the gRPC framework, see more details in the :ref:`gRPC` connector section.
-    - **Kafka:** Implements a data stream to a Kafka topic trught the *Kafka producer* library. Implements an RPC type of comunication trough Kafka topics using the JSON-RPC protocol, it accepts write requests. More details in the :ref:`Kafka` connector section.
+    - **Kafka:** Implements a data stream to a Kafka topic trught the *Kafka producer* library. Implements an RPC type of comunication trough Kafka topics using the JSON-RPC protocol, it accepts write requests. More details in the :ref:`Kafka<Kafka-Connector>` connector section.
     - **InfluxDB:** Submits a stream of metrics to InfulxDB on variables change. More details in the :ref:`InfluxDB` connector section.
 
 

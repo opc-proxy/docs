@@ -9,7 +9,7 @@ to add new capabilities one simply needs to add the corresponding connector.
 Connectors are modules for the OPC-proxy that implement an endpoint for a communication protocol,
 they can leverage the OPC-proxy core library to interact with the OPC-server. 
 To write your own connector see the :ref:`Extend Connectors` section.
-In this section we describe the currenlty supported connectors: `gRPC`_, `Kafka`_ and `InfluxDB`_.
+In this section we describe the currenlty supported connectors: `gRPC`_, `Kafka <Kafka-Connector>`_ and `InfluxDB`_.
 
 An OPC-Proxy **can run multiple connectors**, so for example one can push metrics to InfluxDB while
 serving a gRPC or Kafka (or both) endpoint.
@@ -95,18 +95,21 @@ An example client based on NodeJs is provided in the `gitHub-OPC-Node-Client-Exa
 Follow the instruction reported there.
 
 First run the OPC-Proxy configured with a gRPC endpont, this example assumes an OPC-Proxy running on ``port:5051``, 
-which is default, it also assume that the OPC-server is the `Python-OPCUA <https://github.com/FreeOpcUa/python-opcua/blob/master/examples/server-minimal.py>`_, 
+which is default, it also assume that the OPC-server is the `Python-OPCUA <https://github.com/FreeOpcUa/python-opcua>`_, 
 or in general that there will be an exposed variable called ``MyVariable``.  
 
-The example with will read and write a value to ``MyVariable`` of the python test server example. 
+The example will read and write a value to ``MyVariable`` of the python test server example.
+The value of MyVariable is always increasing by 0.1 every half a second. The client will read
+its value and reset it to 1. 
+
 Keep in mind that the OPC-server will push variables values (if they change) to the OPC-Proxy
 with rate of 1 sec, you can query the OPC-Proxy much faster than that, the write request will be forwared
 to the server immediately, but read request will read the latest value from the memory cache of the
 OPC-Proxy.
 
 
-Kafka
-=====
+Kafka-Connector
+===============
 
 `Apache Kafka <https://kafka.apache.org/>`_ is an open-source stream-processing platform,
 it is the de facto standard for high-throughput, low-latency handling of real-time data feeds.
@@ -132,6 +135,9 @@ The Kafka-Connector will by default define three **topics** the name of which de
 - The **RPC-request** topic, the one where all the (write) request are send, is named ``opcSystemName`` with appended suffix ``-request``.
 - The **RPC-response** topic, the one where all the RPC-style responses are served, is named ``opcSystemName`` with appended suffix ``-response``.
 
+.. note::
+    Keep in mind that your consumer clients need to have different ``group ID`` if you want all of them to receive updates.
+    Also **Do Not** assign same ``group ID`` as the the OPC-Proxy to any other clients.
 
 Serialization Deserialization
 """""""""""""""""""""""""""""
@@ -226,7 +232,9 @@ The ``id`` is either forwarded from the request or the Kafka-Offset of the relat
 Kafka-Connector Client Example
 """"""""""""""""""""""""""""""
 
-
+You can find an example of kafka client for NodeJs in this repository `gitHub-NodeKafka_client <https://github.com/opc-proxy/OPC-Node-Client-Examples/tree/master/Examples/Kafka>`_.
+Here we assume as opc test-server the :ref:`OPCUA-Python-server<Setup an OPC-Server with Python>`. 
+Using Node we show how to connect to a published data stream of nodes change on kafka, and how to interface to the kafka-RPC for writing nodes values.
 
 InfluxDB
 =========
