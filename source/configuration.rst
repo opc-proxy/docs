@@ -1,5 +1,5 @@
 Configuration
-===============
+=============
 
 Configuration can be done via JSON file, the default file name is ``proxy_config.json``.
 All the config keys that are not recognized will be ignored, if no configuration is provided
@@ -29,22 +29,110 @@ OPC related Configs
 These configs are related to core features and define how the opc client must behave. They must be  placed at the root level of the json file.
 
 .. csv-table::
-    :header: "Config Key","Default","Notes"
-    :widths: 20, 20, 40
+    :header: "Config Key","type","Default","Notes"
+    :widths: 20, 10, 10, 40
 
-    "opcServerURL", "none", "OPC server TCP URL endpoint"
-    "reconnectPeriod", "10", "Time interval [seconds] to wait before retry to reconnect to OPC server"
-    "publishingInterval", "1000", "This is a subscription parameter, time intervall [millisecond] at which the OPC server will send node values updates."
-    "opcSystemName", "OPC", "Name of the OPC system that will be used to identification "
+    "**opcServerURL**", "string","none", "OPC server TCP URL endpoint"
+    "**reconnectPeriod**","int", "10 [s]", "Time interval [seconds] to wait before retry to reconnect to OPC server"
+    "**publishingInterval**", "int", "1000 [ms]", "This is a subscription parameter, time intervall [millisecond] at which the OPC server will send node values updates."
+    "**opcSystemName**", "string","OPC", "Name of the OPC system that will be used for identification "
 
 
 gRPC-Connector Configs
 """"""""""""""""""""""
+These configs are related to the :ref:`gRPC Connector`, they must be placed under the key ``gRPC`` as follows:
 
+.. code-block:: javascript
+
+    {
+        // Other config here 
+
+        "gRPC" :{
+                "port" : 5051
+        }
+    }
+
+
+.. csv-table::
+    :header: "Config Key","type","Default","Notes"
+    :widths: 20, 10, 10, 40
+
+    "**host**", "string","localhost", "host name on the network."
+    "**port**", "int","5051", "Port on which to listen for client requests"
 
 
 Kafka-Connector Configs
 """""""""""""""""""""""
+These configs are related to the :ref:`Kafka-Connector`, they must be placed under the keys ``kafkaProducer`` and ``kafkaRPC``,
+there are also two root level configs: ``KafkaSchemaRegistryURL`` and ``KafkaServers``, as in the example:
+
+.. code-block:: javascript
+
+    {
+        // Other config here 
+
+        opcSystemName : "OPC",
+        KafkaSchemaRegistryURL : "localhost:8081",
+        KafkaServers : "localhost:9092",
+        
+        kafkaProducer : {
+            // Producer conf
+        },
+        kafkaRPC : {
+            // RPC conf
+        }
+    }
+
+Root level cofigs:
+^^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: "Config Key","type","Default","Notes"
+    :widths: 20, 10, 10, 40
+
+    "**opcSystemName**","string","OPC","System name is a core variable, it will be used to evaluate the topic names for nodes publishing, see :ref:`Kafka-Connector`"
+    "**KafkaSchemaRegistryURL**","string","localhost:8081","Endpoint of the schema registry"
+    "**KafkaServers**","string","localhost:9092","Comma separated list of kafka brokers. These will be set for the producer and the consumer of the OPC-Proxy, this can be overidden, see below."
+
+kafkaProducer:
+^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+    :header: "Config Key","type","Default","Notes"
+    :widths: 20, 10, 10, 40
+
+    "**BootstrapServers**", "string", "localhost:9092", "Comma separated list of Kafka brokers endpoints. If not set, this will be set to the value of **KafkaServers**."
+    "**BatchNumMessages**", "int", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**LingerMs**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**QueueBufferingMaxKbytes**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**QueueBufferingMaxMessages**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**MessageTimeoutMs**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**EnableIdempotence**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**RetryBackoffMs**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+    "**MessageSendMaxRetries**", "", "", "See `Confluent producer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ProducerConfig.html#Confluent_Kafka_ProducerConfig_BatchNumMessages>`_"
+
+kafkaRPC:
+^^^^^^^^^^^^^^^^^
+All the non reported kafka consumer configurations are set to default values.
+
+.. csv-table::
+    :header: "Config Key","type","Default","Notes"
+    :widths: 20, 10, 10, 40
+
+    "**BootstrapServers**", "string", "localhost:9092", "Comma separated list of Kafka brokers endpoints. If not set, this will be set to the value of **KafkaServers**."
+    "**GroupId**", "string", "OPC", "Group ID of the RPC kafka consumer. No other consumer can have this group ID in the whole system. If not set, default is to be set to ``opcSystemName``."
+    "**enableKafkaRPC**", "bool", "true", "Enable the RPC-style comunication trough kafka topics."
+    "**EnableAutoCommit**", "bool", "true", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**EnableAutoOffsetStore**", "bool", "true", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**AutoCommitIntervalMs**", "int", "5000 [ms]", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**SessionTimeoutMs**", "int", "10000 [ms]", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**AutoOffsetReset**", "string", "latest", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**EnablePartitionEof**", "bool", "false", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**FetchWaitMaxMs**", "int", "1000 [ms]", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**FetchMinBytes**", "int", "1", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+    "**HeartbeatIntervalMs**", "int", "3000 [ms]", "See `Confluent consumer docs <https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.ConsumerConfig.html#Confluent_Kafka_ConsumerConfig_AutoCommitIntervalMs>`_"
+
+
 
 InfluxDB-Connector Configs
 """"""""""""""""""""""""""

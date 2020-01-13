@@ -9,13 +9,13 @@ to add new capabilities one simply needs to add the corresponding connector.
 Connectors are modules for the OPC-proxy that implement an endpoint for a communication protocol,
 they can leverage the OPC-proxy core library to interact with the OPC-server. 
 To write your own connector see the :ref:`Extend Connectors` section.
-In this section we describe the currenlty supported connectors: `gRPC`_, `Kafka <Kafka-Connector>`_ and `InfluxDB`_.
+In this section we describe the currenlty supported connectors: `gRPC <gRPC Connector>`_, `Kafka <Kafka-Connector>`_ and `InfluxDB`_.
 
 An OPC-Proxy **can run multiple connectors**, so for example one can push metrics to InfluxDB while
 serving a gRPC or Kafka (or both) endpoint.
 
-gRPC
-====
+gRPC Connector
+==============
 
 gRPC is a modern open source high performance RPC framework, initially 
 developed at Google. It is very flexible and userfriendly, it can easily 
@@ -30,8 +30,8 @@ The OPC-Proxy gRPC-Connector repository can be found at `gitHub-GrpcConnector <h
 You find all its configuration options in the :ref:`Configuration` section.
 
 
-HTTP Connector API
-""""""""""""""""""
+Protocol Definition
+"""""""""""""""""""
 
 A client can initiate ``Read`` request and a ``Write`` request. 
 In future also a subscritpion to server push on variable change will be available.
@@ -89,7 +89,7 @@ will have a ``isError = false``.
 
 
 
-HTTP Client Example
+gRPC Client Example
 """""""""""""""""""
 An example client based on NodeJs is provided in the `gitHub-OPC-Node-Client-Example <https://github.com/opc-proxy/OPC-Node-Client-Examples/tree/master/Examples/gRPC>`_
 Follow the instruction reported there.

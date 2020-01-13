@@ -94,7 +94,7 @@ add the corresponding connector. Connectors are modules for the OPC-proxy that i
 they can leverage the OPC-proxy core library to interact with the OPC-server. To write your own connector see the :ref:`Extend Connectors` section.
 
 The currently supported connectors are:
-    - **gRPC:** Implements an RPC type of comunication between a server and a client over HTTP. It uses the gRPC framework, see more details in the :ref:`gRPC` connector section.
+    - **gRPC:** Implements an RPC type of comunication between a server and a client over HTTP. It uses the gRPC framework, see more details in the :ref:`gRPC<gRPC Connector>` connector section.
     - **Kafka:** Implements a data stream to a Kafka topic trught the *Kafka producer* library. Implements an RPC type of comunication trough Kafka topics using the JSON-RPC protocol, 
       it accepts write requests. More details in the :ref:`Kafka<Kafka-Connector>` connector section.
     - **InfluxDB:** Submits a stream of metrics to InfulxDB on variables change. More details in the :ref:`InfluxDB` connector section.
