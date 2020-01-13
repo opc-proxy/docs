@@ -51,7 +51,7 @@ These are config related to nodes loading methods and selection rules.
     :widths: 20, 10, 10, 40
 
     "**browseNodes**", "bool", "true", "If ``true`` load nodes via recursively drilling trough the server tree, it may use many network requests. If false will load nodes from an xml file, according to the Nodeset2 OPC specification."
-    "**targetIdentifier**", "string", "DisplayName", "Node attribute that undergoes selection rules, it can be: ``displayname``,``browsename``,``nodeid``. In case of ``nodeid`` is necessary to specify also the prefix like ``i=123`` or ``s=VarName``. It is case insensitive."
+    "**targetIdentifier**", "string", "DisplayName", "Node attribute that undergoes selection rules, it can be: ``displayname``, ``browsename``, ``nodeid``. In case of ``nodeid`` is necessary to specify also the prefix like ``i=123`` or ``s=VarName``. It is case insensitive."
     "**filename**", "string", "nodeset.xml", "Path to the xml file where the nodes are defined. Necessary if ``browseNodes = false``."
     "**whiteList**", "string[ ]", "empty", "Accept all nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list. "
     "**blackList**", "string[ ]", "empty", "Exclude nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list."
