@@ -1,5 +1,5 @@
 ======================
-About the OPC-Proxy
+The OPC-Proxy Project
 ======================
 
 The OPC-Proxy is a set of libraries aimed to facilitate communication 
