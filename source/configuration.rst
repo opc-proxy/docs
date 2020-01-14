@@ -44,7 +44,7 @@ These are config related to nodes loading methods and selection rules.
 .. note::
     If no selection rules are defined then **ALL** nodes of type **Variable** are loaded automatically.
     If more selection rules are defined they Add/Excludes nodes (of type Variable) based on the following priority order: ``whiteList``,
-    ``blackList``, ``contains``, ``notContain``, ``matchRegEx``
+    ``blackList``, ``notContain``, ``contains``, ``matchRegEx``.
 
 .. csv-table::
     :header: "Config Key","type","Default","Notes"
@@ -53,11 +53,11 @@ These are config related to nodes loading methods and selection rules.
     "**browseNodes**", "bool", "true", "If ``true`` load nodes via recursively drilling trough the server tree, it may use many network requests. If false will load nodes from an xml file, according to the Nodeset2 OPC specification."
     "**targetIdentifier**", "string", "DisplayName", "Node attribute that undergoes selection rules, it can be: ``displayname``, ``browsename``, ``nodeid``. In case of ``nodeid`` is necessary to specify also the prefix like ``i=123`` or ``s=VarName``. It is case insensitive."
     "**filename**", "string", "nodeset.xml", "Path to the xml file where the nodes are defined. Necessary if ``browseNodes = false``."
-    "**whiteList**", "string[ ]", "empty", "Accept all nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list. "
-    "**blackList**", "string[ ]", "empty", "Exclude nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list."
-    "**contains**", "string[ ]", "empty", "Accept nodes with  ``targetIdentifier`` **containing** one of the string in the list."
-    "**notContain**",  "string[ ]", "empty", "Excludes nodes with  ``targetIdentifier`` **containing** one of the string in the list."
-    "**matchRegEx**",  "string[ ]", "empty", "Accept nodes with  ``targetIdentifier`` **matching** one of the regular expression string in the list."
+    "**whiteList**", "string[ ]", "empty", "Accept all nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list. Runs first."
+    "**blackList**", "string[ ]", "empty", "Exclude nodes with ``targetIdentifier`` **exactly equal** to one of the string in the list. Runs second."
+    "**notContain**",  "string[ ]", "empty", "Excludes nodes with  ``targetIdentifier`` **containing** one of the string in the list. Runs before ``contains`` and ``matchRegEx``."
+    "**contains**", "string[ ]", "empty", "Accept nodes with  ``targetIdentifier`` **containing** one of the string in the list. Runs before ``matchRegEx``."
+    "**matchRegEx**",  "string[ ]", "empty", "Accept nodes with  ``targetIdentifier`` **matching** one of the regular expression string in the list. Runs last."
 
 
 gRPC-Connector Configs
