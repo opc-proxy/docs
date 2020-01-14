@@ -6,7 +6,7 @@ The OPC-Proxy is a set of libraries aimed to facilitate communication
 between the industial autonomation world and **big data** tools.
 It is a gateway to put in comunication a network/server that speaks
 the OPC protocol with a network that supports a variety of other protocols.
-The supported protocols/services to date are: HTTP, Kafka and InfluxDB.
+The supported protocols/services to date are: gRPC, Kafka and InfluxDB.
 
 This Proxy was developed to allow full duplex comunication between an
 OPC-server and any of its clients, one of the main features is that it
