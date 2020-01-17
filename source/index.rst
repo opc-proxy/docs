@@ -23,6 +23,7 @@ Jump to Concept
 - The OPC-Proxy core functionality :ref:`Introduction`
 - Description of supported :ref:`Connectors`
 - How to :ref:`Write Your Own Connector<Extend Connectors>`
+- :ref:`Configuration` options
 
 .. toctree::
     :hidden:
@@ -32,6 +33,7 @@ Jump to Concept
     intro
     connectors
     extend_connectors
+    configuration
 
 
 .. toctree::
@@ -39,11 +41,4 @@ Jump to Concept
     :maxdepth: 2
 
     GettingStarted/index
-
-.. toctree::
-    :hidden:
-    :caption: Configuration
-    :maxdepth: 2
-
-    configuration
 

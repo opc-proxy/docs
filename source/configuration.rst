@@ -1,6 +1,12 @@
 Configuration
 =============
 
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+
+    
+
 Configuration can be done via JSON file, the default file name is ``proxy_config.json``.
 All the config keys that are not recognized will be ignored, if no configuration is provided
 for a parameter its default value will be loaded. An example of configuration file can be the following:
@@ -158,3 +164,4 @@ All the non reported kafka consumer configurations are set to default values.
 
 InfluxDB-Connector Configs
 """"""""""""""""""""""""""
+
